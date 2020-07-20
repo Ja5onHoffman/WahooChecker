@@ -1,0 +1,10 @@
+
+
+Pods/
+
+.DS_Store
+
+GoogleService-Info.plist
+.xcuserstate
+.xcbkptlist
+*xcworkspace/xcuserdata/*

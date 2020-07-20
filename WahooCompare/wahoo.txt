@@ -1,0 +1,67 @@
+Created
+0
+Update state
+central.state is .poweredOn
+<CBPeripheral: 0x283e70000, identifier = DED2E3C2-325A-30B6-6009-8569A9F21DFE, name = KICKR CORE 9062, state = disconnected>
+Connected!
+<CBService: 0x281a28500, isPrimary = YES, UUID = Device Information>
+<CBService: 0x281a285c0, isPrimary = YES, UUID = A026EE01-0A7D-4AB3-97FA-F1500F9FEB8B>
+<CBService: 0x281a28600, isPrimary = YES, UUID = A026EE03-0A7D-4AB3-97FA-F1500F9FEB8B>
+<CBService: 0x281a28640, isPrimary = YES, UUID = 1818>
+<CBService: 0x281a28680, isPrimary = YES, UUID = A026EE0B-0A7D-4AB3-97FA-F1500F9FEB8B>
+<CBService: 0x281a286c0, isPrimary = YES, UUID = A026EE06-0A7D-4AB3-97FA-F1500F9FEB8B>
+<CBCharacteristic: 0x282b70120, UUID = Manufacturer Name String, properties = 0x2, value = (null), notifying = NO>
+Manufacturer Name String: properties contains .read
+<CBCharacteristic: 0x282b70180, UUID = Serial Number String, properties = 0x2, value = (null), notifying = NO>
+Serial Number String: properties contains .read
+<CBCharacteristic: 0x282b700c0, UUID = Hardware Revision String, properties = 0x2, value = (null), notifying = NO>
+Hardware Revision String: properties contains .read
+<CBCharacteristic: 0x282b701e0, UUID = Firmware Revision String, properties = 0x2, value = (null), notifying = NO>
+Firmware Revision String: properties contains .read
+<CBCharacteristic: 0x282b78060, UUID = A026E002-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x14, value = (null), notifying = NO>
+A026E002-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .notify
+<CBCharacteristic: 0x282b78120, UUID = A026E004-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x10, value = (null), notifying = NO>
+A026E004-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .notify
+<CBCharacteristic: 0x282b70240, UUID = A026E00A-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x14, value = (null), notifying = NO>
+A026E00A-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .notify
+<CBCharacteristic: 0x282b600c0, UUID = 2A63, properties = 0x10, value = (null), notifying = NO>
+2A63: properties contains .notify
+<CBCharacteristic: 0x282b60360, UUID = 2A65, properties = 0x2, value = (null), notifying = NO>
+2A65: properties contains .read
+<CBCharacteristic: 0x282b603c0, UUID = 2A5D, properties = 0x2, value = (null), notifying = NO>
+2A5D: properties contains .read
+<CBCharacteristic: 0x282b60420, UUID = A026E005-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x28, value = (null), notifying = NO>
+<CBCharacteristic: 0x282b60480, UUID = 2A66, properties = 0x28, value = (null), notifying = NO>
+<CBCharacteristic: 0x282b60120, UUID = A026E037-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x16, value = (null), notifying = NO>
+A026E037-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .read
+A026E037-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .notify
+<CBCharacteristic: 0x282b702a0, UUID = A026E023-0A7D-4AB3-97FA-F1500F9FEB8B, properties = 0x14, value = (null), notifying = NO>
+A026E023-0A7D-4AB3-97FA-F1500F9FEB8B: properties contains .notify
+Unhandled Characteristic UUID: Manufacturer Name String
+Unhandled Characteristic UUID: Serial Number String
+Unhandled Characteristic UUID: Hardware Revision String
+Unhandled Characteristic UUID: Firmware Revision String
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A65
+Unhandled Characteristic UUID: 2A5D
+Unhandled Characteristic UUID: A026E037-0A7D-4AB3-97FA-F1500F9FEB8B
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+Unhandled Characteristic UUID: 2A63
+
