@@ -12,6 +12,8 @@ import SwiftUI
 
 struct BorderRect: View {
 
+    @EnvironmentObject var bt: Bluetooth
+    
     var name: String!
     
     init(_ name: String) {
@@ -34,7 +36,7 @@ struct BorderRect: View {
                     .foregroundColor(.white)
                 Text("Watts")
                 Button(action: {
-                    // action
+                    self.bt.scan()
                 }, label: { Text("Connect Device") })
                     .padding()
                     .background(Color.green)
