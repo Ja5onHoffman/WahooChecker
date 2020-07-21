@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3148DE6324C5F9F8009F802C /* wahoo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3148DE6224C5F9F7009F802C /* wahoo.txt */; };
+		3148DE6524C61E41009F802C /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3148DE6424C61E41009F802C /* DeviceList.swift */; };
 		3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187252424BCF3D0001E2A2F /* Bluetooth.swift */; };
 		31B3737124B672D200D1289C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737024B672D200D1289C /* AppDelegate.swift */; };
 		31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737224B672D200D1289C /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		3148DE6224C5F9F7009F802C /* wahoo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = wahoo.txt; sourceTree = "<group>"; };
+		3148DE6424C61E41009F802C /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
 		3187252424BCF3D0001E2A2F /* Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		31B3736D24B672D200D1289C /* WahooCompare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WahooCompare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B3737024B672D200D1289C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				31B3738724B7827500D1289C /* DataBox.swift */,
+				3148DE6424C61E41009F802C /* DeviceList.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				31B3737124B672D200D1289C /* AppDelegate.swift in Sources */,
 				3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */,
 				31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */,
+				3148DE6524C61E41009F802C /* DeviceList.swift in Sources */,
 				31B3737524B672D200D1289C /* PowerView.swift in Sources */,
 				31B3738824B7827500D1289C /* DataBox.swift in Sources */,
 			);

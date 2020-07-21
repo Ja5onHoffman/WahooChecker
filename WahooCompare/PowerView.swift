@@ -21,6 +21,7 @@ struct PowerView: View {
         
         
         VStack {
+            // Loop to create each view with power data addes as variable
             ForEach(0..<2) { i in
                 DataBox()
             }

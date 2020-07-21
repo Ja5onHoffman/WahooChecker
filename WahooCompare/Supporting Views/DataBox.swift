@@ -8,11 +8,10 @@
 
 import SwiftUI
 
-
-
 struct BorderRect: View {
 
-    @EnvironmentObject var bt: Bluetooth
+    @ObservedObject var bt = Bluetooth.sharedInstance
+    @State var showingDevices = false
     
     var name: String!
     
@@ -36,8 +35,13 @@ struct BorderRect: View {
                     .foregroundColor(.white)
                 Text("Watts")
                 Button(action: {
-                    self.bt.scan()
+                    self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
+                    .sheet(isPresented: $showingDevices) {
+                        DeviceListView().onAppear {
+                            self.bt.scan() 
+                        }
+                }
                     .padding()
                     .background(Color.green)
                     .cornerRadius(20)

@@ -12,6 +12,11 @@ import CoreBluetooth
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
+    static let sharedInstance = Bluetooth() 
+    
+    @Published var names = [String]()
+    @Published var peripherals = [CBPeripheral]()
+
     var centralManager: CBCentralManager!
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
@@ -19,7 +24,6 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     var powermeterPeripheral: CBPeripheral!
     var trainerPeripheral: CBPeripheral!
     
-    var peripherals = [String]()
     
     public override init() {
         super.init()
@@ -65,17 +69,18 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         print(peripheral)
         // Need a way to identify different systems
-        if peripheral.name!.contains("CORE") {
-            trainerPeripheral = peripheral
-            centralManager.connect(trainerPeripheral)
-            trainerPeripheral.delegate = self
-        }
-        
-        if peripheral.name!.contains("ASSIOMA") {
-            powermeterPeripheral = peripheral
-            centralManager.connect(powermeterPeripheral)
-            powermeterPeripheral.delegate = self
-        }
+        peripherals.append(peripheral)
+//        if peripheral.name!.contains("CORE") {
+//            trainerPeripheral = peripheral
+//            centralManager.connect(trainerPeripheral)
+//            trainerPeripheral.delegate = self
+//        }
+//
+//        if peripheral.name!.contains("ASSIOMA") {
+//            powermeterPeripheral = peripheral
+//            centralManager.connect(powermeterPeripheral)
+//            powermeterPeripheral.delegate = self
+//        }
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
