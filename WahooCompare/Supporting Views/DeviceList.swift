@@ -13,7 +13,7 @@ import class CoreBluetooth.CBPeripheral
 
 struct DeviceListView: View {
     @ObservedObject private var devices = Devices()
-    @State private var selected: UUID? = nil
+    @State private var selected: UUID?
     @Binding var isPresented: Bool
     
     static var bt = Bluetooth.sharedInstance
@@ -26,6 +26,11 @@ struct DeviceListView: View {
         .navigationBarTitle(Text("Choose a Device"))
                 .navigationBarItems(trailing: Button(action: {
                     self.isPresented = false
+                    for i in self.devices.deviceList {
+                        if self.selected!.uuidString == i.id.uuidString {
+                            print(i.name)
+                        }
+                    }
                 }, label: {
                     Text("Connect")
                         .fontWeight(.heavy)

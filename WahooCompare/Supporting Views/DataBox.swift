@@ -39,6 +39,7 @@ struct BorderRect: View {
                 }, label: { Text("Connect Device") })
                     .sheet(isPresented: $showingDevices) {
                         DeviceListView(isPresented: self.$showingDevices).onAppear {
+//                        ExampleView(isPresented: self.$showingDevices).onAppear {
                             self.bt.scan()
                         }
                 }
