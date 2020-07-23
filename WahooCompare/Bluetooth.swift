@@ -36,7 +36,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     }
     
     func scan() {
-        if centralManager.state == .poweredOn {
+        if centralManager.state == .poweredOn && !centralManager.isScanning {
                 centralManager.scanForPeripherals(withServices: [powerMeterCBUUID], options: nil)
         } else {
             print("Bluetooth is off")

@@ -39,7 +39,7 @@ struct BorderRect: View {
                 }, label: { Text("Connect Device") })
                     .sheet(isPresented: $showingDevices) {
                         DeviceListView().onAppear {
-                            self.bt.scan() 
+                            self.bt.scan()
                         }
                 }
                     .padding()
