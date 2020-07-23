@@ -13,15 +13,23 @@ import class CoreBluetooth.CBPeripheral
 
 struct DeviceListView: View {
     @ObservedObject private var devices = Devices()
-    @State private var selected: String? = nil
+    @State private var selected: UUID? = nil
+    @Binding var isPresented: Bool
+    
     static var bt = Bluetooth.sharedInstance
     
     var body: some View {
         NavigationView {
-            List(devices.deviceList, selection: $devices.selectedDevice) { d in
+            List(devices.deviceList, selection: $selected) { d in
                 DeviceRow(device: d).tag(d.name)
             }.environment(\.editMode, .constant(.active))
         .navigationBarTitle(Text("Choose a Device"))
+                .navigationBarItems(trailing: Button(action: {
+                    self.isPresented = false
+                }, label: {
+                    Text("Connect")
+                        .fontWeight(.heavy)
+                }))
         }
     }
     
@@ -33,7 +41,7 @@ struct DeviceListView: View {
     class Devices: ObservableObject {
         
         @Published var deviceList: [Device] = loadDevices()
-        @Published var selectedDevice: Device?
+//        @Published var selectedDevice: Set<Device>
         
         static var dL = [Device]()
         
@@ -56,9 +64,8 @@ struct DeviceListView: View {
     }
 }
 
-struct DeviceList_Previews: PreviewProvider {
-    static var previews: some View {
-        let bt = Bluetooth.sharedInstance
-        return DeviceListView().environmentObject(bt)
-    }
-}
+//struct DeviceList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        return DeviceListView(isPresented: Binding(true))
+//    }
+//}
