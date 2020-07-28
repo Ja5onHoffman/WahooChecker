@@ -15,6 +15,7 @@ struct DeviceListView: View {
     @ObservedObject private var devices = Devices()
     @State private var selected: UUID?
     @Binding var isPresented: Bool
+    @Binding var name: String
     
     static var bt = Bluetooth.sharedInstance
     
@@ -26,9 +27,11 @@ struct DeviceListView: View {
         .navigationBarTitle(Text("Choose a Device"))
                 .navigationBarItems(trailing: Button(action: {
                     self.isPresented = false
+                
                     for i in self.devices.deviceList {
                         if self.selected!.uuidString == i.id.uuidString {
-                            print(i.name)
+                            self.devices.connectToPeripheralWithName(i.name)
+                            self.name = i.name
                         }
                     }
                 }, label: {
@@ -48,15 +51,24 @@ struct DeviceListView: View {
         @Published var deviceList: [Device] = loadDevices()
 //        @Published var selectedDevice: Set<Device>
         
-        static var dL = [Device]()
         
         static func loadDevices() -> [Device] {
+            var dL = [Device]()
             for i in bt.peripherals {
                 if let name = i.name {
                     dL.append(Device(name: name))
                 }
             }
             return dL
+        }
+        
+        func connectToPeripheralWithName(_ name: String) {
+            for i in bt.peripherals {
+                if i.name == name {
+                    bt.centralManager.connect(i, options: nil)
+                    bt.addPeripheral(i) 
+                }
+            }
         }
     }
     

@@ -12,8 +12,8 @@ struct BorderRect: View {
 
     @ObservedObject var bt = Bluetooth.sharedInstance
     @State var showingDevices = false
-    
-    var name: String!
+    @State var deviceName: String = "" 
+    var name: String = "" 
     
     init(_ name: String) {
         self.name = name
@@ -33,13 +33,12 @@ struct BorderRect: View {
                     .cornerRadius(20.0)
                     .font(.title)
                     .foregroundColor(.white)
-                Text("Watts")
+                Text("\(bt.p1Power)")
                 Button(action: {
                     self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
                     .sheet(isPresented: $showingDevices) {
-                        DeviceListView(isPresented: self.$showingDevices).onAppear {
-//                        ExampleView(isPresented: self.$showingDevices).onAppear {
+                        DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
                             self.bt.scan()
                         }
                 }

@@ -20,9 +20,19 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     var centralManager: CBCentralManager!
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
+    let wattUnitCBUUID = CBUUID(string: "0x2762")
     
-    var powermeterPeripheral: CBPeripheral!
-    var trainerPeripheral: CBPeripheral!
+    var p1: CBPeripheral!
+    var p2: CBPeripheral!
+    var p1Name: String!
+    var p2Name: String!
+    
+    @Published var p1Values = [Float]()
+    @Published var p2Values = [Float]()
+    
+    @Published var p1Power: Int16 = 0
+    @Published var p2Power: Int16 = 0
+
     
     
     public override init() {
@@ -43,6 +53,20 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         }
     }
     
+    func addPeripheral(_ peripheral: CBPeripheral) {
+        peripherals.append(peripheral)
+        if let p = peripherals.first {
+            p1 = p
+            p1Name = p.name
+            p1.delegate = self
+        }
+        
+        if let p = peripherals[1] as CBPeripheral? {
+            p2 = p
+            p2Name = p.name
+            p2.delegate = self
+        }
+    }
     
 //MARK: CBCentralManagerDelegate
         
@@ -85,7 +109,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
-        trainerPeripheral.discoverServices(nil)
+        peripheral.discoverServices(nil)
 //        powermeterPeripheral.discoverServices(nil)
     }
 
@@ -119,7 +143,27 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        switch characteristic.uuid {
+        case powerMeasurementCharacteristicCBUUID:
+            p1Power = powerMeasurement(from: characteristic)
+        default:
+            print("Unhandled Characteristic UUID: \(characteristic.uuid)")
+        }
+        
+    }
+    
+    func powerMeasurement(from characteristic: CBCharacteristic) -> Int16 {
 
-          print("Unhandled Characteristic UUID: \(characteristic.uuid)")
+        guard let characteristicData = characteristic.value else { return -1 }
+        let byteArray = [UInt8](characteristicData)
+        print(byteArray)
+        
+        // Power comes through in two bytes
+        // Above 256 combine to get power
+        let msb = byteArray[3]
+        let lsb = byteArray[2]
+        let p = (Int16(msb) << 8 ) | Int16(lsb)
+        
+        return p
     }
 }
