@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct BorderRect: View {
+struct DataBox: View {
 
     @ObservedObject var bt = Bluetooth.sharedInstance
     @State var showingDevices = false
     @State var deviceName: String = "" 
-    var name: String = "" 
+    var name: String = "Device" 
     
     init(_ name: String) {
         self.name = name
@@ -51,15 +51,10 @@ struct BorderRect: View {
     }
 }
 
-struct DataBox: View {
-    
-    var body: some View {
-        BorderRect("Device")
-    }
-}
+
 
 struct DataBox_Previews: PreviewProvider {
     static var previews: some View {
-        DataBox()
+        DataBox("Device")
     }
 }

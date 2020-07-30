@@ -24,14 +24,16 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     var p1: CBPeripheral!
     var p2: CBPeripheral!
-    var p1Name: String!
-    var p2Name: String!
+
     
     @Published var p1Values = [Float]()
     @Published var p2Values = [Float]()
     
     @Published var p1Power: Int16 = 0
     @Published var p2Power: Int16 = 0
+    
+    @Published var p1Name: String = "Device 1"
+    @Published var p2Name: String = "Device 2"
 
     
     
@@ -42,30 +44,34 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func createCentralManager() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        print("Created")
     }
     
     func scan() {
         if centralManager.state == .poweredOn && !centralManager.isScanning {
-                centralManager.scanForPeripherals(withServices: [powerMeterCBUUID], options: nil)
+                centralManager.scanForPeripherals(withServices: [powerMeterServiceCBUUID], options: nil)
         } else {
             print("Bluetooth is off")
         }
     }
     
     func addPeripheral(_ peripheral: CBPeripheral) {
-        peripherals.append(peripheral)
-        if let p = peripherals.first {
+        if let p = peripherals[0] as CBPeripheral? {
             p1 = p
-            p1Name = p.name
+            p1Name = p.name!
             p1.delegate = self
         }
         
         if let p = peripherals[1] as CBPeripheral? {
             p2 = p
-            p2Name = p.name
+            p2Name = p.name!
             p2.delegate = self
         }
+        
+    }
+    
+    func connectTo(_ peripheral: CBPeripheral) {
+        // Assioma has to be in L only mode vs Dual L/R
+        centralManager.connect(peripheral, options: nil)
     }
     
 //MARK: CBCentralManagerDelegate
@@ -91,26 +97,12 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print(peripheral)
-        // Need a way to identify different systems
-        peripherals.append(peripheral)
-//        if peripheral.name!.contains("CORE") {
-//            trainerPeripheral = peripheral
-//            centralManager.connect(trainerPeripheral)
-//            trainerPeripheral.delegate = self
-//        }
-//
-//        if peripheral.name!.contains("ASSIOMA") {
-//            powermeterPeripheral = peripheral
-//            centralManager.connect(powermeterPeripheral)
-//            powermeterPeripheral.delegate = self
-//        }
+        peripherals.append(peripheral) // Device list uses this
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
         peripheral.discoverServices(nil)
-//        powermeterPeripheral.discoverServices(nil)
     }
 
     
@@ -143,9 +135,14 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+
         switch characteristic.uuid {
         case powerMeasurementCharacteristicCBUUID:
-            p1Power = powerMeasurement(from: characteristic)
+            if peripheral.name == p1Name {
+                p1Power = powerMeasurement(from: characteristic)
+            } else if peripheral.name == p2Name {
+                p2Power = powerMeasurement(from: characteristic)
+            }
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
@@ -165,5 +162,12 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         let p = (Int16(msb) << 8 ) | Int16(lsb)
         
         return p
+    }
+    
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        if let p = peripherals.firstIndex(of: peripheral) {
+            peripherals.remove(at: p)
+        }
+
     }
 }

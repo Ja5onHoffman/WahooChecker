@@ -137,8 +137,8 @@
             filePath = "WahooCompare/Bluetooth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "powerMeasurement(from:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -153,8 +153,8 @@
             filePath = "WahooCompare/Bluetooth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "peripheral(_:didUpdateValueFor:error:)"
             landmarkType = "7">
             <Locations>
@@ -201,9 +201,25 @@
             filePath = "WahooCompare/Bluetooth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "powerMeasurement(from:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3CA97E40-E675-477B-AF48-C757FA4231BE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WahooCompare/Bluetooth.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "addPeripheral(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

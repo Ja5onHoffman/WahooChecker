@@ -27,11 +27,12 @@ struct DeviceListView: View {
         .navigationBarTitle(Text("Choose a Device"))
                 .navigationBarItems(trailing: Button(action: {
                     self.isPresented = false
-                
+                    
                     for i in self.devices.deviceList {
                         if self.selected!.uuidString == i.id.uuidString {
                             self.devices.connectToPeripheralWithName(i.name)
                             self.name = i.name
+                            
                         }
                     }
                 }, label: {
@@ -65,7 +66,7 @@ struct DeviceListView: View {
         func connectToPeripheralWithName(_ name: String) {
             for i in bt.peripherals {
                 if i.name == name {
-                    bt.centralManager.connect(i, options: nil)
+                    bt.connectTo(i)
                     bt.addPeripheral(i) 
                 }
             }
