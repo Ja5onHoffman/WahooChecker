@@ -12,14 +12,30 @@ import CoreBluetooth
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
+    static let sharedInstance = Bluetooth() 
+    
+    @Published var names = [String]()
+    @Published var peripherals = [CBPeripheral]()
+
     var centralManager: CBCentralManager!
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
+    let wattUnitCBUUID = CBUUID(string: "0x2762")
     
-    var powermeterPeripheral: CBPeripheral!
-    var trainerPeripheral: CBPeripheral!
+    var p1: CBPeripheral!
+    var p2: CBPeripheral!
+
     
-    var peripherals = [String]()
+    @Published var p1Values = [CGFloat]()
+    @Published var p2Values = [CGFloat]()
+    
+    @Published var p1Power: Int16 = 0
+    @Published var p2Power: Int16 = 0
+    
+    @Published var p1Name: String = "Device 1"
+    @Published var p2Name: String = "Device 2"
+
+    
     
     public override init() {
         super.init()
@@ -28,17 +44,36 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func createCentralManager() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
-        print("Created")
     }
     
     func scan() {
-        if centralManager.state == .poweredOn {
-                centralManager.scanForPeripherals(withServices: [powerMeterCBUUID], options: nil)
+        if centralManager.state == .poweredOn && !centralManager.isScanning {
+                centralManager.scanForPeripherals(withServices: [powerMeterServiceCBUUID], options: nil)
         } else {
             print("Bluetooth is off")
         }
     }
     
+    func addPeripheral(_ peripheral: CBPeripheral) {
+        if let p = peripherals[0] as CBPeripheral? {
+            p1 = p
+            p1Name = p.name!
+            p1.delegate = self
+        }
+        
+        if peripherals.count > 1 {
+            if let p = peripherals[1] as CBPeripheral? {
+                p2 = p
+                p2Name = p.name!
+                p2.delegate = self
+            }
+        }
+    }
+    
+    func connectTo(_ peripheral: CBPeripheral) {
+        // Assioma has to be in L only mode vs Dual L/R
+        centralManager.connect(peripheral, options: nil)
+    }
     
 //MARK: CBCentralManagerDelegate
         
@@ -63,25 +98,12 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print(peripheral)
-        // Need a way to identify different systems
-        if peripheral.name!.contains("CORE") {
-            trainerPeripheral = peripheral
-            centralManager.connect(trainerPeripheral)
-            trainerPeripheral.delegate = self
-        }
-        
-        if peripheral.name!.contains("ASSIOMA") {
-            powermeterPeripheral = peripheral
-            centralManager.connect(powermeterPeripheral)
-            powermeterPeripheral.delegate = self
-        }
+        peripherals.append(peripheral) // Device list uses this
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
-        trainerPeripheral.discoverServices(nil)
-//        powermeterPeripheral.discoverServices(nil)
+        peripheral.discoverServices(nil)
     }
 
     
@@ -115,6 +137,39 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
 
-          print("Unhandled Characteristic UUID: \(characteristic.uuid)")
+        switch characteristic.uuid {
+        case powerMeasurementCharacteristicCBUUID:
+            if peripheral.name == p1Name {
+                p1Power = powerMeasurement(from: characteristic)
+                p1Values.append(CGFloat(p1Power))
+            } else if peripheral.name == p2Name {
+                p2Power = powerMeasurement(from: characteristic)
+                p2Values.append(CGFloat(p2Power))
+            }
+        default:
+            print("Unhandled Characteristic UUID: \(characteristic.uuid)")
+        }
+        
+    }
+    
+    func powerMeasurement(from characteristic: CBCharacteristic) -> Int16 {
+
+        guard let characteristicData = characteristic.value else { return -1 }
+        let byteArray = [UInt8](characteristicData)
+        
+        // Power comes through in two bytes
+        // Above 256 combine to get power
+        let msb = byteArray[3]
+        let lsb = byteArray[2]
+        let p = (Int16(msb) << 8 ) | Int16(lsb)
+        
+        return p
+    }
+    
+    public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        if let p = peripherals.firstIndex(of: peripheral) {
+            peripherals.remove(at: p)
+        }
+
     }
 }

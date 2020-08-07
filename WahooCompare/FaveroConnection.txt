@@ -1,0 +1,118 @@
+
+Created
+0
+Update state
+central.state is .poweredOn
+<CBPeripheral: 0x28378e1c0, identifier = F4AB3E08-ECD7-B357-7C63-7B7E8C106592, name = ASSIOMA43829R, state = disconnected>
+<CBPeripheral: 0x283798140, identifier = DED2E3C2-325A-30B6-6009-8569A9F21DFE, name = KICKR CORE 9062, state = disconnected>
+<CBPeripheral: 0x2837800a0, identifier = C60E6AA7-B3EB-314B-1C7E-D6FA2CE3CA27, name = ASSIOMA46339L, state = disconnected>
+Connected!
+2020-07-28 17:37:24.287835-0500 WahooCompare[8607:1457463] [CoreBluetooth] API MISUSE: Discovering services for peripheral <CBPeripheral: 0x2837800a0, identifier = C60E6AA7-B3EB-314B-1C7E-D6FA2CE3CA27, name = ASSIOMA46339L, state = connected> while delegate is either nil or does not implement peripheral:didDiscoverServices:
+2020-07-28 17:37:35.525631-0500 WahooCompare[8607:1457463] [TableView] Warning once only: UITableView was told to layout its visible cells and other contents without being in the view hierarchy (the table view or one of its superviews has not been added to a window). This may cause bugs by forcing views inside the table view to load and perform layout without accurate information (e.g. table view bounds, trait collection, layout margins, safe area insets, etc), and will also cause unnecessary performance overhead due to extra layout passes. Make a symbolic breakpoint at UITableViewAlertForLayoutOutsideViewHierarchy to catch this in the debugger and see what caused this to occur, so you can avoid this action altogether if possible, or defer it until the table view has been added to a window. Table view: <_TtC7SwiftUIP33_BFB370BA5F1BADDC9D83021565761A4925UpdateCoalescingTableView: 0x105835e00; baseClass = UITableView; frame = (0 0; 0 0); clipsToBounds = YES; gestureRecognizers = <NSArray: 0x2808f7870>; layer = <CALayer: 0x2806d4ea0>; contentOffset: {0, 0}; contentSize: {0, 176}; adjustedContentInset: {0, 0, 0, 0}; dataSource: <_TtGC7SwiftUIP10$1cdb6c42419ListCoreCoordinatorGVS_20SystemListDataSourceV10Foundation4UUID_GOS_19SelectionManagerBoxS3___: 0x105507e50>>
+Bluetooth is off
+Connected!
+<CBService: 0x2813edb00, isPrimary = YES, UUID = 6E400001-B5A3-F393-E0A9-E50E24DCCA9E>
+<CBService: 0x2813ef100, isPrimary = YES, UUID = 1818>
+<CBService: 0x2813ecb00, isPrimary = YES, UUID = Device Information>
+<CBService: 0x2813eca40, isPrimary = YES, UUID = Battery>
+<CBCharacteristic: 0x282299b60, UUID = 6E400003-B5A3-F393-E0A9-E50E24DCCA9E, properties = 0x10, value = (null), notifying = NO>
+6E400003-B5A3-F393-E0A9-E50E24DCCA9E: properties contains .notify
+<CBCharacteristic: 0x282298540, UUID = 6E400004-B5A3-F393-E0A9-E50E24DCCA9E, properties = 0x10, value = (null), notifying = NO>
+6E400004-B5A3-F393-E0A9-E50E24DCCA9E: properties contains .notify
+<CBCharacteristic: 0x28229adc0, UUID = 6E400002-B5A3-F393-E0A9-E50E24DCCA9E, properties = 0xC, value = (null), notifying = NO>
+<CBCharacteristic: 0x28229b2a0, UUID = 2A63, properties = 0x10, value = (null), notifying = NO>
+2A63: properties contains .notify
+<CBCharacteristic: 0x282299a40, UUID = 2A65, properties = 0x2, value = (null), notifying = NO>
+2A65: properties contains .read
+<CBCharacteristic: 0x282298a80, UUID = 2A66, properties = 0x28, value = (null), notifying = NO>
+<CBCharacteristic: 0x28229b360, UUID = 2A5D, properties = 0x2, value = (null), notifying = NO>
+2A5D: properties contains .read
+<CBCharacteristic: 0x2822a9680, UUID = Manufacturer Name String, properties = 0x2, value = (null), notifying = NO>
+Manufacturer Name String: properties contains .read
+<CBCharacteristic: 0x2822ab960, UUID = Model Number String, properties = 0x2, value = (null), notifying = NO>
+Model Number String: properties contains .read
+<CBCharacteristic: 0x2822ab1e0, UUID = Serial Number String, properties = 0x2, value = (null), notifying = NO>
+Serial Number String: properties contains .read
+<CBCharacteristic: 0x2822aae80, UUID = Hardware Revision String, properties = 0x2, value = (null), notifying = NO>
+Hardware Revision String: properties contains .read
+<CBCharacteristic: 0x2822a90e0, UUID = Firmware Revision String, properties = 0x2, value = (null), notifying = NO>
+Firmware Revision String: properties contains .read
+<CBCharacteristic: 0x2822abf60, UUID = Battery Level, properties = 0x2, value = (null), notifying = NO>
+Battery Level: properties contains .read
+Unhandled Characteristic UUID: 2A65
+Unhandled Characteristic UUID: 2A5D
+Unhandled Characteristic UUID: Manufacturer Name String
+Unhandled Characteristic UUID: Model Number String
+Unhandled Characteristic UUID: Serial Number String
+Unhandled Characteristic UUID: Hardware Revision String
+Unhandled Characteristic UUID: Firmware Revision String
+Unhandled Characteristic UUID: Battery Level
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 0, 0, 0, 0, 0, 0]
+[32, 0, 15, 0, 1, 0, 143, 13]
+[32, 0, 101, 0, 2, 0, 140, 17]
+[32, 0, 88, 0, 3, 0, 214, 20]
+[32, 0, 73, 0, 4, 0, 226, 23]
+[32, 0, 67, 0, 5, 0, 250, 26]
+[32, 0, 72, 0, 6, 0, 3, 30]
+[32, 0, 57, 0, 7, 0, 182, 33]
+[32, 0, 144, 0, 8, 0, 228, 37]
+[32, 0, 133, 0, 9, 0, 7, 42]
+[32, 0, 157, 0, 10, 0, 247, 45]
+[32, 0, 155, 0, 11, 0, 208, 49]
+[32, 0, 156, 0, 13, 0, 67, 57]
+[32, 0, 140, 0, 14, 0, 239, 60]
+[32, 0, 102, 0, 15, 0, 166, 64]
+[32, 0, 24, 0, 16, 0, 153, 68]
+[32, 0, 7, 0, 17, 0, 203, 72]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]
+[32, 0, 0, 0, 18, 0, 62, 77]

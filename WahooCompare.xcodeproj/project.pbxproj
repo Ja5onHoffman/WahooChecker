@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3148DE6324C5F9F8009F802C /* wahoo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3148DE6224C5F9F7009F802C /* wahoo.txt */; };
+		3148DE6524C61E41009F802C /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3148DE6424C61E41009F802C /* DeviceList.swift */; };
+		3148DE6724CB3258009F802C /* wahooconnected.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3148DE6624CB3258009F802C /* wahooconnected.txt */; };
+		314A3BD024D0E0B500D38AC1 /* FaveroConnection.txt in Resources */ = {isa = PBXBuildFile; fileRef = 314A3BCF24D0E0B500D38AC1 /* FaveroConnection.txt */; };
+		314A3BD824D3A8B400D38AC1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A3BD724D3A8B400D38AC1 /* GraphView.swift */; };
 		3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187252424BCF3D0001E2A2F /* Bluetooth.swift */; };
 		31B3737124B672D200D1289C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737024B672D200D1289C /* AppDelegate.swift */; };
 		31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737224B672D200D1289C /* SceneDelegate.swift */; };
@@ -20,6 +24,10 @@
 
 /* Begin PBXFileReference section */
 		3148DE6224C5F9F7009F802C /* wahoo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = wahoo.txt; sourceTree = "<group>"; };
+		3148DE6424C61E41009F802C /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
+		3148DE6624CB3258009F802C /* wahooconnected.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = wahooconnected.txt; sourceTree = "<group>"; };
+		314A3BCF24D0E0B500D38AC1 /* FaveroConnection.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FaveroConnection.txt; sourceTree = "<group>"; };
+		314A3BD724D3A8B400D38AC1 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		3187252424BCF3D0001E2A2F /* Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		31B3736D24B672D200D1289C /* WahooCompare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WahooCompare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B3737024B672D200D1289C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +76,8 @@
 				31B3737424B672D200D1289C /* PowerView.swift */,
 				3187252424BCF3D0001E2A2F /* Bluetooth.swift */,
 				3148DE6224C5F9F7009F802C /* wahoo.txt */,
+				3148DE6624CB3258009F802C /* wahooconnected.txt */,
+				314A3BCF24D0E0B500D38AC1 /* FaveroConnection.txt */,
 				31B3737624B672D400D1289C /* Assets.xcassets */,
 				31B3737B24B672D400D1289C /* LaunchScreen.storyboard */,
 				31B3737E24B672D400D1289C /* Info.plist */,
@@ -88,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				31B3738724B7827500D1289C /* DataBox.swift */,
+				3148DE6424C61E41009F802C /* DeviceList.swift */,
+				314A3BD724D3A8B400D38AC1 /* GraphView.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -150,6 +162,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3148DE6724CB3258009F802C /* wahooconnected.txt in Resources */,
+				314A3BD024D0E0B500D38AC1 /* FaveroConnection.txt in Resources */,
 				31B3737D24B672D400D1289C /* LaunchScreen.storyboard in Resources */,
 				3148DE6324C5F9F8009F802C /* wahoo.txt in Resources */,
 				31B3737A24B672D400D1289C /* Preview Assets.xcassets in Resources */,
@@ -166,7 +180,9 @@
 			files = (
 				31B3737124B672D200D1289C /* AppDelegate.swift in Sources */,
 				3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */,
+				314A3BD824D3A8B400D38AC1 /* GraphView.swift in Sources */,
 				31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */,
+				3148DE6524C61E41009F802C /* DeviceList.swift in Sources */,
 				31B3737524B672D200D1289C /* PowerView.swift in Sources */,
 				31B3738824B7827500D1289C /* DataBox.swift in Sources */,
 			);
