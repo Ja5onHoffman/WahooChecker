@@ -26,8 +26,8 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     var p2: CBPeripheral!
 
     
-    @Published var p1Values = [Float]()
-    @Published var p2Values = [Float]()
+    @Published var p1Values = [CGFloat]()
+    @Published var p2Values = [CGFloat]()
     
     @Published var p1Power: Int16 = 0
     @Published var p2Power: Int16 = 0
@@ -61,12 +61,13 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
             p1.delegate = self
         }
         
-        if let p = peripherals[1] as CBPeripheral? {
-            p2 = p
-            p2Name = p.name!
-            p2.delegate = self
+        if peripherals.count > 1 {
+            if let p = peripherals[1] as CBPeripheral? {
+                p2 = p
+                p2Name = p.name!
+                p2.delegate = self
+            }
         }
-        
     }
     
     func connectTo(_ peripheral: CBPeripheral) {
@@ -140,8 +141,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         case powerMeasurementCharacteristicCBUUID:
             if peripheral.name == p1Name {
                 p1Power = powerMeasurement(from: characteristic)
+                p1Values.append(CGFloat(p1Power))
             } else if peripheral.name == p2Name {
                 p2Power = powerMeasurement(from: characteristic)
+                p2Values.append(CGFloat(p2Power))
             }
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
@@ -153,7 +156,6 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
 
         guard let characteristicData = characteristic.value else { return -1 }
         let byteArray = [UInt8](characteristicData)
-        print(byteArray)
         
         // Power comes through in two bytes
         // Above 256 combine to get power

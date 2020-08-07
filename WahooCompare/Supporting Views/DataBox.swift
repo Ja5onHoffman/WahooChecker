@@ -25,8 +25,8 @@ struct DataBox: View {
                 .fill(Color.white)
                 .shadow(radius: 10)
                 .padding(EdgeInsets(top: 0, leading: 5.0, bottom: 5.0, trailing: 5.0))
-                .aspectRatio(1.0, contentMode: .fit)
-            VStack(spacing: 110) {
+                .aspectRatio(1.3, contentMode: .fit)
+            VStack(spacing: 70) {
                 Text(name)
                     .padding(EdgeInsets(top: 10.0, leading: 20.0, bottom: 10.0, trailing: 20.0))
                     .background(Color.black)

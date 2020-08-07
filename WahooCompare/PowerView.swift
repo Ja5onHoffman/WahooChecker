@@ -22,6 +22,7 @@ struct PowerView: View {
         VStack {
             DataBox(bt.p1Name)
             DataBox(bt.p2Name)
+            GraphView() 
         }.onAppear {
             print(self.bt.centralManager.state.rawValue)
         }
