@@ -26,11 +26,11 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     var p2: CBPeripheral!
 
     
-    @Published var p1Values = [CGFloat]()
-    @Published var p2Values = [CGFloat]()
+    @Published var p1Values = PowerArray(size: 100)
+    @Published var p2Values = PowerArray(size: 100)
     
-    @Published var p1Power: Int16 = 0
-    @Published var p2Power: Int16 = 0
+    @Published var p1Power = PowerData(value: 0)
+    @Published var p2Power =  PowerData(value: 0)
     
     @Published var p1Name: String = "Device 1"
     @Published var p2Name: String = "Device 2"
@@ -141,10 +141,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         case powerMeasurementCharacteristicCBUUID:
             if peripheral.name == p1Name {
                 p1Power = powerMeasurement(from: characteristic)
-                p1Values.append(CGFloat(p1Power))
+                p1Values.addValue(p1Power)
             } else if peripheral.name == p2Name {
                 p2Power = powerMeasurement(from: characteristic)
-                p2Values.append(CGFloat(p2Power))
+                p2Values.addValue(p2Power)
             }
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
@@ -152,17 +152,17 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         
     }
     
-    func powerMeasurement(from characteristic: CBCharacteristic) -> Int16 {
+    func powerMeasurement(from characteristic: CBCharacteristic) -> PowerData {
 
-        guard let characteristicData = characteristic.value else { return -1 }
+        guard let characteristicData = characteristic.value else { return PowerData(value: 0) }
         let byteArray = [UInt8](characteristicData)
         
         // Power comes through in two bytes
         // Above 256 combine to get power
         let msb = byteArray[3]
         let lsb = byteArray[2]
-        let p = (Int16(msb) << 8 ) | Int16(lsb)
-        
+        let pRaw = (Int16(msb) << 8 ) | Int16(lsb)
+        let p = PowerData(value: Double(pRaw))
         return p
     }
     

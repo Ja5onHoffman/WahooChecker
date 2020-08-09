@@ -12,6 +12,7 @@
 		3148DE6724CB3258009F802C /* wahooconnected.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3148DE6624CB3258009F802C /* wahooconnected.txt */; };
 		314A3BD024D0E0B500D38AC1 /* FaveroConnection.txt in Resources */ = {isa = PBXBuildFile; fileRef = 314A3BCF24D0E0B500D38AC1 /* FaveroConnection.txt */; };
 		314A3BD824D3A8B400D38AC1 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A3BD724D3A8B400D38AC1 /* GraphView.swift */; };
+		314A3C0124E0909A00D38AC1 /* PowerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A3BFE24E08BCB00D38AC1 /* PowerData.swift */; };
 		3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187252424BCF3D0001E2A2F /* Bluetooth.swift */; };
 		31B3737124B672D200D1289C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737024B672D200D1289C /* AppDelegate.swift */; };
 		31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737224B672D200D1289C /* SceneDelegate.swift */; };
@@ -28,6 +29,7 @@
 		3148DE6624CB3258009F802C /* wahooconnected.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = wahooconnected.txt; sourceTree = "<group>"; };
 		314A3BCF24D0E0B500D38AC1 /* FaveroConnection.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FaveroConnection.txt; sourceTree = "<group>"; };
 		314A3BD724D3A8B400D38AC1 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		314A3BFE24E08BCB00D38AC1 /* PowerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerData.swift; sourceTree = "<group>"; };
 		3187252424BCF3D0001E2A2F /* Bluetooth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		31B3736D24B672D200D1289C /* WahooCompare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WahooCompare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31B3737024B672D200D1289C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		314A3BFD24E08BB200D38AC1 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				314A3BFE24E08BCB00D38AC1 /* PowerData.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
 		31B3736424B672D200D1289C = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +80,7 @@
 		31B3736F24B672D200D1289C /* WahooCompare */ = {
 			isa = PBXGroup;
 			children = (
+				314A3BFD24E08BB200D38AC1 /* Supporting */,
 				31B3738424B7823B00D1289C /* Supporting Views */,
 				31B3737024B672D200D1289C /* AppDelegate.swift */,
 				31B3737224B672D200D1289C /* SceneDelegate.swift */,
@@ -179,6 +190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31B3737124B672D200D1289C /* AppDelegate.swift in Sources */,
+				314A3C0124E0909A00D38AC1 /* PowerData.swift in Sources */,
 				3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */,
 				314A3BD824D3A8B400D38AC1 /* GraphView.swift in Sources */,
 				31B3737324B672D200D1289C /* SceneDelegate.swift in Sources */,

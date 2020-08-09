@@ -33,7 +33,7 @@ struct DataBox: View {
                     .cornerRadius(20.0)
                     .font(.title)
                     .foregroundColor(.white)
-                Text("\(bt.p1Power)")
+                Text("\(bt.p1Power.value)")
                 Button(action: {
                     self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
