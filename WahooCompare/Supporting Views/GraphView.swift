@@ -56,7 +56,7 @@ struct GraphView: View {
             
             // Last n indicies of array
             // Or limit length to 500
-            ForEach(self.bt.p1Values.values) { d in
+            ForEach(self.bt.powerValues.values) { d in
                 Path { path in
                    let h = r.size.height
                     let width = self.dayWidth(r.size.width, count: 500)

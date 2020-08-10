@@ -16,7 +16,6 @@ struct PowerData: Identifiable {
 
 class PowerArray {
     
-
     let size: Int?
     var values = [PowerData]()
     

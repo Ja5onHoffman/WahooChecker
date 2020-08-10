@@ -15,16 +15,18 @@ let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
 
 struct PowerView: View {
 
-    @EnvironmentObject var bt: Bluetooth
+    var btOne = BluetoothOne.sharedInstance
+    var btTwo = BluetoothTwo.sharedInstance
 
     var body: some View {
         
         VStack {
-            DataBox(bt.p1Name)
-            DataBox(bt.p2Name)
+            DataBox(btOne.deviceName, btOne)
+            DataBox(btTwo.deviceName, btTwo)
             GraphView() 
         }.onAppear {
-            print(self.bt.centralManager.state.rawValue)
+            print(self.btOne.centralManager.state.rawValue)
+            print(self.btTwo.centralManager.state.rawValue)
         }
     }
 }

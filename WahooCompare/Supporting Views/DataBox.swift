@@ -10,13 +10,14 @@ import SwiftUI
 
 struct DataBox: View {
 
-    @ObservedObject var bt = Bluetooth.sharedInstance
     @State var showingDevices = false
     @State var deviceName: String = "" 
     var name: String = "Device" 
+    var bt: Bluetooth
     
-    init(_ name: String) {
+    init(_ name: String, _ btObject: Bluetooth) {
         self.name = name
+        self.bt = btObject
     }
     
     var body: some View {
@@ -33,7 +34,7 @@ struct DataBox: View {
                     .cornerRadius(20.0)
                     .font(.title)
                     .foregroundColor(.white)
-                Text("\(bt.p1Power.value)")
+                Text("\(bt.power.value)")
                 Button(action: {
                     self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
@@ -53,8 +54,8 @@ struct DataBox: View {
 
 
 
-struct DataBox_Previews: PreviewProvider {
-    static var previews: some View {
-        DataBox("Device")
-    }
-}
+//struct DataBox_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DataBox("Device")
+//    }
+//}

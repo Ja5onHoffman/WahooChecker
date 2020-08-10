@@ -14,8 +14,8 @@
             filePath = "WahooCompare/Bluetooth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "peripheral(_:didUpdateValueFor:error:)"
             landmarkType = "7">
          </BreakpointContent>

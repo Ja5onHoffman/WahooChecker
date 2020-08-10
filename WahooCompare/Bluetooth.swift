@@ -22,20 +22,12 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
     let wattUnitCBUUID = CBUUID(string: "0x2762")
     
-    var p1: CBPeripheral!
-    var p2: CBPeripheral!
+    var device: CBPeripheral!
 
-    
-    @Published var p1Values = PowerArray(size: 100)
-    @Published var p2Values = PowerArray(size: 100)
-    
-    @Published var p1Power = PowerData(value: 0)
-    @Published var p2Power =  PowerData(value: 0)
-    
-    @Published var p1Name: String = "Device 1"
-    @Published var p2Name: String = "Device 2"
+    @Published var powerValues = PowerArray(size: 100)
+    @Published var power = PowerData(value: 0)
+    @Published var deviceName: String = "Device"
 
-    
     
     public override init() {
         super.init()
@@ -56,17 +48,9 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func addPeripheral(_ peripheral: CBPeripheral) {
         if let p = peripherals[0] as CBPeripheral? {
-            p1 = p
-            p1Name = p.name!
-            p1.delegate = self
-        }
-        
-        if peripherals.count > 1 {
-            if let p = peripherals[1] as CBPeripheral? {
-                p2 = p
-                p2Name = p.name!
-                p2.delegate = self
-            }
+            device = p
+            deviceName = p.name!
+            device.delegate = self
         }
     }
     
@@ -139,12 +123,9 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
 
         switch characteristic.uuid {
         case powerMeasurementCharacteristicCBUUID:
-            if peripheral.name == p1Name {
-                p1Power = powerMeasurement(from: characteristic)
-                p1Values.addValue(p1Power)
-            } else if peripheral.name == p2Name {
-                p2Power = powerMeasurement(from: characteristic)
-                p2Values.addValue(p2Power)
+            if peripheral.name == deviceName {
+                power = powerMeasurement(from: characteristic)
+                powerValues.addValue(power)
             }
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
@@ -171,5 +152,17 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
             peripherals.remove(at: p)
         }
 
+    }
+}
+
+class BluetoothOne: Bluetooth {
+    override init() {
+        super.init()
+    }
+}
+
+class BluetoothTwo: Bluetooth {
+    override init() {
+        super.init()
     }
 }
