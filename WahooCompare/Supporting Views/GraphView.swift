@@ -13,7 +13,7 @@ import SwiftUI
 struct GraphView: View {
     var sampleData: [Int] = [0, 200, 100, 300, 50, 600, 800, 100]
 
-    var bt = Bluetooth.sharedInstance
+    let bt = BluetoothOne.sharedInstance
     
     func degreeHeight(_ height: CGFloat, range: Int) -> CGFloat {
       height / CGFloat(range)
