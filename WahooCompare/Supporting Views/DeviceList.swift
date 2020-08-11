@@ -12,12 +12,21 @@ import class CoreBluetooth.CBPeripheral
 
 
 struct DeviceListView: View {
-    @ObservedObject private var devices = Devices()
+    
+    @ObservedObject private var devices: Devices
     @State private var selected: UUID?
     @Binding var isPresented: Bool
     @Binding var name: String
+    let bt: Bluetooth
+    // Can add bindings to custom initializer
     
-    static var bt = Bluetooth.sharedInstance
+    init(_ btObject: Bluetooth, isPresented: Binding<Bool>, name: Binding<String>) {
+        self.bt = btObject
+        self._isPresented = isPresented
+        self._name = name
+        devices = Devices(self.bt)
+        devices.loadDevices()
+    }
     
     var body: some View {
         NavigationView {
@@ -32,7 +41,6 @@ struct DeviceListView: View {
                         if self.selected!.uuidString == i.id.uuidString {
                             self.devices.connectToPeripheralWithName(i.name)
                             self.name = i.name
-                            
                         }
                     }
                 }, label: {
@@ -42,43 +50,49 @@ struct DeviceListView: View {
         }
     }
     
-    struct Device: Identifiable, Hashable {
-        let id = UUID()
-        let name: String
+
+    
+}
+
+struct Device: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+}
+
+class Devices: ObservableObject {
+    
+    @Published var deviceList = [Device]()
+    var bt: Bluetooth
+    
+    init(_ btObject: Bluetooth) {
+        self.bt = btObject
     }
     
-    class Devices: ObservableObject {
-        
-        @Published var deviceList: [Device] = loadDevices()
-//        @Published var selectedDevice: Set<Device>
-        
-        
-        static func loadDevices() -> [Device] {
-            var dL = [Device]()
-            for i in bt.peripherals {
-                if let name = i.name {
-                    dL.append(Device(name: name))
-                }
+    func loadDevices() {
+        var dL = [Device]()
+        for i in bt.peripherals {
+            if let name = i.name {
+                dL.append(Device(name: name))
             }
-            return dL
         }
-        
-        func connectToPeripheralWithName(_ name: String) {
-            for i in bt.peripherals {
-                if i.name == name {
-                    bt.connectTo(i)
-                    bt.addPeripheral(i) 
-                }
+        deviceList = dL
+    }
+    
+    func connectToPeripheralWithName(_ name: String) {
+        for i in bt.peripherals {
+            if i.name == name {
+                bt.connectTo(i)
+                bt.addPeripheral(i)
             }
         }
     }
+}
+
+struct DeviceRow: View {
+    let device: Device
     
-    struct DeviceRow: View {
-        let device: Device
-        
-        var body: some View {
-            Text(device.name)
-        }
+    var body: some View {
+        Text(device.name)
     }
 }
 

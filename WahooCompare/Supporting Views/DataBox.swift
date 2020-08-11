@@ -9,9 +9,10 @@
 import SwiftUI
 
 struct DataBox: View {
-
+    
+    
     @State var showingDevices = false
-    @State var deviceName: String = "" 
+    @State var deviceName: String = ""
     var name: String = "Device" 
     var bt: Bluetooth
     
@@ -39,7 +40,7 @@ struct DataBox: View {
                     self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
                     .sheet(isPresented: $showingDevices) {
-                        DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
+                        DeviceListView(self.bt, isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
                             self.bt.scan()
                         }
                 }
