@@ -12,6 +12,8 @@ import CoreBluetooth
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
         
+    static let sharedInstance = Bluetooth()
+    
     @Published var names = [String]()
     @Published var peripherals = [CBPeripheral]()
 
@@ -153,18 +155,3 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     }
 }
 
-class BluetoothOne: Bluetooth {
-    static let sharedInstance = BluetoothOne()
-    
-    override init() {
-        super.init()
-    }
-}
-
-class BluetoothTwo: Bluetooth {
-    static let sharedInstance = BluetoothTwo()
-    
-    override init() {
-        super.init()
-    }
-}

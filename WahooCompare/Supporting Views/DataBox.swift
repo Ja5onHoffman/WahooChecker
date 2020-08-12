@@ -13,12 +13,7 @@ struct DataBox: View {
     @State var showingDevices = false
     @State var deviceName: String = ""
     var name: String = "Device" 
-    var bt: Bluetooth
-    
-    init(_ name: String, _ btObject: Bluetooth) {
-        self.name = name
-        self.bt = btObject
-    }
+    var bt = Bluetooth.sharedInstance
     
     var body: some View {
         ZStack {
@@ -39,7 +34,7 @@ struct DataBox: View {
                     self.showingDevices.toggle()
                 }, label: { Text("Connect Device") })
                     .sheet(isPresented: $showingDevices) {
-                        DeviceListView(self.bt, isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
+                        DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
                             self.bt.scan()
                         }
                 }
