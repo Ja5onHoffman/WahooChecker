@@ -61,21 +61,21 @@ struct Device: Identifiable, Hashable {
 
 class Devices: ObservableObject {
     
-    @Published var deviceList = [Device]()
+    @Published var deviceList: [Device] = loadDevices()
     var bt: Bluetooth
     
     init(_ btObject: Bluetooth) {
         self.bt = btObject
     }
     
-    func loadDevices() {
+    static func loadDevices() -> [Device] {
         var dL = [Device]()
         for i in bt.peripherals {
             if let name = i.name {
                 dL.append(Device(name: name))
             }
         }
-        deviceList = dL
+        return dL
     }
     
     func connectToPeripheralWithName(_ name: String) {

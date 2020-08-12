@@ -10,7 +10,6 @@ import SwiftUI
 
 struct DataBox: View {
     
-    
     @State var showingDevices = false
     @State var deviceName: String = ""
     var name: String = "Device" 
