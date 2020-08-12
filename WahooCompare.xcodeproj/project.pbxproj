@@ -14,9 +14,9 @@
 		314A3C0124E0909A00D38AC1 /* PowerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A3BFE24E08BCB00D38AC1 /* PowerData.swift */; };
 		314A3C0624E46DB900D38AC1 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3148DE6424C61E41009F802C /* DeviceList.swift */; };
 		314A3C0824E4776A00D38AC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737224B672D200D1289C /* SceneDelegate.swift */; };
+		314A3C0924E4840E00D38AC1 /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737424B672D200D1289C /* PowerView.swift */; };
 		3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3187252424BCF3D0001E2A2F /* Bluetooth.swift */; };
 		31B3737124B672D200D1289C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737024B672D200D1289C /* AppDelegate.swift */; };
-		31B3737524B672D200D1289C /* PowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B3737424B672D200D1289C /* PowerView.swift */; };
 		31B3737724B672D400D1289C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31B3737624B672D400D1289C /* Assets.xcassets */; };
 		31B3737A24B672D400D1289C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31B3737924B672D400D1289C /* Preview Assets.xcassets */; };
 		31B3737D24B672D400D1289C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B3737B24B672D400D1289C /* LaunchScreen.storyboard */; };
@@ -191,9 +191,9 @@
 			files = (
 				31B3737124B672D200D1289C /* AppDelegate.swift in Sources */,
 				314A3C0124E0909A00D38AC1 /* PowerData.swift in Sources */,
+				314A3C0924E4840E00D38AC1 /* PowerView.swift in Sources */,
 				3187252524BCF3D0001E2A2F /* Bluetooth.swift in Sources */,
 				314A3BD824D3A8B400D38AC1 /* GraphView.swift in Sources */,
-				31B3737524B672D200D1289C /* PowerView.swift in Sources */,
 				31B3738824B7827500D1289C /* DataBox.swift in Sources */,
 				314A3C0624E46DB900D38AC1 /* DeviceList.swift in Sources */,
 				314A3C0824E4776A00D38AC1 /* SceneDelegate.swift in Sources */,

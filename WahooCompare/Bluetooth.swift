@@ -11,7 +11,7 @@ import CoreBluetooth
 
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
-        
+    
     static let sharedInstance = Bluetooth()
     
     @Published var names = [String]()
@@ -22,13 +22,18 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
     let wattUnitCBUUID = CBUUID(string: "0x2762")
     
-    var device: CBPeripheral!
+    var p1: CBPeripheral!
+    var p2: CBPeripheral!
 
-    @Published var powerValues = PowerArray(size: 100)
-    @Published var power = PowerData(value: 0)
-    @Published var deviceName: String = "Device"
-
+    @Published var p1Values = PowerArray(size: 100)
+    @Published var p2Values = PowerArray(size: 100)
     
+    @Published var p1Power = PowerData(value: 0)
+    @Published var p2Power =  PowerData(value: 0)
+    
+    @Published var p1Name: String = "Device 1"
+    @Published var p2Name: String = "Device 2"
+
     public override init() {
         super.init()
         self.createCentralManager()
@@ -48,9 +53,17 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func addPeripheral(_ peripheral: CBPeripheral) {
         if let p = peripherals[0] as CBPeripheral? {
-            device = p
-            deviceName = p.name!
-            device.delegate = self
+            p1 = p
+            p1Name = p.name!
+            p1.delegate = self
+        }
+        
+        if peripherals.count > 1 {
+            if let p = peripherals[1] as CBPeripheral? {
+                p2 = p
+                p2Name = p.name!
+                p2.delegate = self
+            }
         }
     }
     
@@ -123,9 +136,12 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
 
         switch characteristic.uuid {
         case powerMeasurementCharacteristicCBUUID:
-            if peripheral.name == deviceName {
-                power = powerMeasurement(from: characteristic)
-                powerValues.addValue(power)
+            if peripheral.name == p1Name {
+                p1Power = powerMeasurement(from: characteristic)
+                p1Values.addValue(p1Power)
+            } else if peripheral.name == p2Name {
+                p2Power = powerMeasurement(from: characteristic)
+                p2Values.addValue(p2Power)
             }
         default:
             print("Unhandled Characteristic UUID: \(characteristic.uuid)")
@@ -154,4 +170,3 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
 
     }
 }
-

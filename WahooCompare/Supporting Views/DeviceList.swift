@@ -18,7 +18,6 @@ struct DeviceListView: View {
     @Binding var isPresented: Bool
     @Binding var name: String
     static var bt = Bluetooth.sharedInstance
-    // Can add bindings to custom initializer
     
     struct Device: Identifiable, Hashable {
         let id = UUID()
@@ -65,7 +64,6 @@ struct DeviceListView: View {
         .navigationBarTitle(Text("Choose a Device"))
                 .navigationBarItems(trailing: Button(action: {
                     self.isPresented = false
-                    
                     for i in self.devices.deviceList {
                         if self.selected!.uuidString == i.id.uuidString {
                             self.devices.connectToPeripheralWithName(i.name)
