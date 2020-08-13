@@ -56,7 +56,7 @@ struct GraphView: View {
             
             // Last n indicies of array
             // Or limit length to 500
-            ForEach(self.bt.powerValues.values) { d in
+            ForEach(self.bt.p1Values.values) { d in
                 Path { path in
                    let h = r.size.height
                     let width = self.dayWidth(r.size.width, count: 500)
@@ -69,8 +69,22 @@ struct GraphView: View {
 
                 }.stroke(Color.blue, lineWidth: 10)
             }
+            
+            ForEach(self.bt.p2Values.values) { d in
+                Path { path in
+                   let h = r.size.height
+                    let width = self.dayWidth(r.size.width, count: 500)
+//                    let offset = self.dayOffset(d, dWidth: width)
+                   let wHeight = self.degreeHeight(h, range: 800)
+                   let low = self.tempOffset(0.0, degreeHeight: wHeight)
+                   let high = self.tempOffset(800.0, degreeHeight: 100)
+                   path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
+                   path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
 
-
+                }.stroke(Color.blue, lineWidth: 10)
+            }
+            
+            
         }
     }
 }

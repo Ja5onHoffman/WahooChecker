@@ -8,14 +8,16 @@
 
 import Foundation
 
-struct PowerData: Identifiable {
+struct PowerData: Identifiable, Hashable {
     let id = UUID()
     let value: Double
     let device: Int = 0
 }
 
-class PowerArray {
+struct PowerArray: Identifiable {
+    var id = UUID() 
     
+
     let size: Int?
     var values = [PowerData]()
     
@@ -23,7 +25,7 @@ class PowerArray {
         self.size = size
     }
     
-    func addValue(_ val: PowerData) {
+    mutating func addValue(_ val: PowerData) {
         guard let s = size else { return }
         if values.count < s {
             values.append(val)
@@ -31,7 +33,6 @@ class PowerArray {
             values.removeFirst()
             values.append(val)
         }
-
     }
     
     func zero() -> PowerData {

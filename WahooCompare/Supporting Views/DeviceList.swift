@@ -27,7 +27,8 @@ struct DeviceListView: View {
     class Devices: ObservableObject {
         
         @Published var deviceList: [Device] = loadDevices()
-
+        
+        
         static func loadDevices() -> [Device] {
             var dL = [Device]()
             for i in bt.peripherals {
@@ -38,9 +39,15 @@ struct DeviceListView: View {
             return dL
         }
         
+        
         func connectToPeripheralWithName(_ name: String) {
             for i in bt.peripherals {
                 if i.name == name {
+                    if bt.deviceNumber == 1 {
+                        bt.p1Name = name
+                    } else if bt.deviceNumber == 2 {
+                        bt.p2Name = name
+                    }
                     bt.connectTo(i)
                     bt.addPeripheral(i)
                 }

@@ -21,6 +21,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
     let wattUnitCBUUID = CBUUID(string: "0x2762")
+    var deviceNumber = 0
     
     var p1: CBPeripheral!
     var p2: CBPeripheral!
@@ -70,6 +71,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     func connectTo(_ peripheral: CBPeripheral) {
         // Assioma has to be in L only mode vs Dual L/R
         centralManager.connect(peripheral, options: nil)
+    }
+    
+    func setDeviceNumber(_ number: Int) {
+        self.deviceNumber = number
     }
     
 //MARK: CBCentralManagerDelegate
