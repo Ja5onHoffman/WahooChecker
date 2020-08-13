@@ -9,36 +9,22 @@
 import SwiftUI
 
 
-struct LineGraph: Shape {
-    var dataPoints: [CGFloat]
-    var max: CGFloat = 800.0
-    func path(in rect: CGRect) -> Path {
-        func point(at ix: Int) -> CGPoint {
-            let point = dataPoints[ix] / max
-            let x = rect.width * CGFloat(ix) / CGFloat(dataPoints.count - 1)
-            let y = (1-point) * rect.height
-            return CGPoint(x: x, y: y)
-        }
-
-        return Path { p in
-            guard dataPoints.count > 1 else { return }
-            let start = dataPoints[0]
-            p.move(to: CGPoint(x: 0, y: 0))
-            for idx in dataPoints.indices {
-                p.addLine(to: point(at: idx))
-            }
-        }
-    }
-}
-
-var sampleData: [CGFloat] = [0, 200.00, 100.00, 300, 50.0, 60.0, 80.0, 100.0]
 
 struct GraphView: View {
-    
-    var bt = Bluetooth.sharedInstance
+    var sampleData: [Int] = [0, 200, 100, 300, 50, 600, 800, 100]
+
+    let bt = Bluetooth.sharedInstance
     
     func degreeHeight(_ height: CGFloat, range: Int) -> CGFloat {
       height / CGFloat(range)
+    }
+    
+    func dayWidth(_ width: CGFloat, count: Int) -> CGFloat {
+      width / CGFloat(count)
+    }
+    
+    func dayOffset(_ date: Date, dWidth: CGFloat) -> CGFloat {
+      CGFloat(Calendar.current.ordinality(of: .day, in: .year, for: date)!) * dWidth
     }
     
     func tempOffset(_ temperature: Double, degreeHeight: CGFloat) -> CGFloat {
@@ -48,20 +34,6 @@ struct GraphView: View {
     func tempLabelOffset(_ line: Int, height: CGFloat) -> CGFloat {
       height - self.tempOffset(Double(line * 10), degreeHeight: self.degreeHeight(height, range: 100))
     }
-    
-//    Path { p in
-//      // 3
-//      let dWidth = self.dayWidth(reader.size.width, count: 365)
-//      let dHeight = self.degreeHeight(reader.size.height, range: 110)
-//      // 4
-//      let dOffset = self.dayOffset(measurement.date, dWidth: dWidth)
-//      let lowOffset = self.tempOffset(measurement.low, degreeHeight: dHeight)
-//      let highOffset = self.tempOffset(measurement.high, degreeHeight: dHeight)
-//      // 5
-//      p.move(to: CGPoint(x: dOffset, y: reader.size.height - lowOffset))
-//      p.addLine(to: CGPoint(x: dOffset, y: reader.size.height - highOffset))
-//      // 6
-//    }.stroke()
     
     var body: some View {
         
@@ -82,18 +54,37 @@ struct GraphView: View {
                 }
             }
             
-            Path { path in
-                           let h = r.size.height
-                           let wHeight = self.degreeHeight(h, range: 800)
-                           let low = self.tempOffset(0.0, degreeHeight: wHeight)
-                           let high = self.tempOffset(800.0, degreeHeight: 100)
-                           path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
-                // Works to scale
-                           path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
+            // Last n indicies of array
+            // Or limit length to 500
+            ForEach(self.bt.p1Values.values) { d in
+                Path { path in
+                   let h = r.size.height
+                    let width = self.dayWidth(r.size.width, count: 500)
+//                    let offset = self.dayOffset(d, dWidth: width)
+                   let wHeight = self.degreeHeight(h, range: 800)
+                   let low = self.tempOffset(0.0, degreeHeight: wHeight)
+                   let high = self.tempOffset(800.0, degreeHeight: 100)
+                   path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
+                   path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
 
-                       }
-                       .stroke(Color.blue, lineWidth: 10)
+                }.stroke(Color.blue, lineWidth: 10)
+            }
+            
+            ForEach(self.bt.p2Values.values) { d in
+                Path { path in
+                   let h = r.size.height
+                    let width = self.dayWidth(r.size.width, count: 500)
+//                    let offset = self.dayOffset(d, dWidth: width)
+                   let wHeight = self.degreeHeight(h, range: 800)
+                   let low = self.tempOffset(0.0, degreeHeight: wHeight)
+                   let high = self.tempOffset(800.0, degreeHeight: 100)
+                   path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
+                   path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
 
+                }.stroke(Color.blue, lineWidth: 10)
+            }
+            
+            
         }
     }
 }

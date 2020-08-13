@@ -12,45 +12,21 @@ import class CoreBluetooth.CBPeripheral
 
 
 struct DeviceListView: View {
+    
     @ObservedObject private var devices = Devices()
     @State private var selected: UUID?
     @Binding var isPresented: Bool
     @Binding var name: String
-    
     static var bt = Bluetooth.sharedInstance
-    
-    var body: some View {
-        NavigationView {
-            List(devices.deviceList, selection: $selected) { d in
-                DeviceRow(device: d).tag(d.name)
-            }.environment(\.editMode, .constant(.active))
-        .navigationBarTitle(Text("Choose a Device"))
-                .navigationBarItems(trailing: Button(action: {
-                    self.isPresented = false
-                    
-                    for i in self.devices.deviceList {
-                        if self.selected!.uuidString == i.id.uuidString {
-                            self.devices.connectToPeripheralWithName(i.name)
-                            self.name = i.name
-                            
-                        }
-                    }
-                }, label: {
-                    Text("Connect")
-                        .fontWeight(.heavy)
-                }))
-        }
-    }
     
     struct Device: Identifiable, Hashable {
         let id = UUID()
         let name: String
     }
-    
+
     class Devices: ObservableObject {
         
         @Published var deviceList: [Device] = loadDevices()
-//        @Published var selectedDevice: Set<Device>
         
         
         static func loadDevices() -> [Device] {
@@ -63,16 +39,22 @@ struct DeviceListView: View {
             return dL
         }
         
+        
         func connectToPeripheralWithName(_ name: String) {
             for i in bt.peripherals {
                 if i.name == name {
+                    if bt.deviceNumber == 1 {
+                        bt.p1Name = name
+                    } else if bt.deviceNumber == 2 {
+                        bt.p2Name = name
+                    }
                     bt.connectTo(i)
-                    bt.addPeripheral(i) 
+                    bt.addPeripheral(i)
                 }
             }
         }
     }
-    
+
     struct DeviceRow: View {
         let device: Device
         
@@ -80,7 +62,32 @@ struct DeviceListView: View {
             Text(device.name)
         }
     }
+    
+    var body: some View {
+        NavigationView {
+            List(devices.deviceList, selection: $selected) { d in
+                DeviceRow(device: d).tag(d.name)
+            }.environment(\.editMode, .constant(.active))
+        .navigationBarTitle(Text("Choose a Device"))
+                .navigationBarItems(trailing: Button(action: {
+                    self.isPresented = false
+                    for i in self.devices.deviceList {
+                        if self.selected!.uuidString == i.id.uuidString {
+                            self.devices.connectToPeripheralWithName(i.name)
+                            self.name = i.name
+                        }
+                    }
+                }, label: {
+                    Text("Connect")
+                        .fontWeight(.heavy)
+                }))
+        }
+    }
+    
+
+    
 }
+
 
 //struct DeviceList_Previews: PreviewProvider {
 //    static var previews: some View {
