@@ -17,7 +17,6 @@ struct PowerData: Identifiable, Hashable {
 struct PowerArray: Identifiable {
     var id = UUID() 
     
-
     let size: Int?
     var values = [PowerData]()
     

@@ -39,6 +39,8 @@ struct DataBox: View {
                             DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
                                 self.bt.setDeviceNumber(1)
                                 self.bt.scan()
+                            }.onDisappear {
+                                self.bt.stopScan()
                             }
                     }
                         .padding()
@@ -68,6 +70,8 @@ struct DataBox: View {
                             DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
                                 self.bt.setDeviceNumber(2)
                                 self.bt.scan()
+                            }.onDisappear {
+                                self.bt.stopScan()
                             }
                     }
                         .padding()
