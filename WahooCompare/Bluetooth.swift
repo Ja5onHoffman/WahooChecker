@@ -52,6 +52,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         }
     }
     
+    func stopScan() {
+        centralManager.stopScan()
+    }
+    
     func addPeripheral(_ peripheral: CBPeripheral) {
         if let p = peripherals[0] as CBPeripheral? {
             p1 = p
