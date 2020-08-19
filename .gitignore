@@ -6,5 +6,6 @@ Pods/
 
 GoogleService-Info.plist
 *.xcuserstate
+.xcuserstate
 .xcbkptlist
 *xcworkspace/xcuserdata/*
