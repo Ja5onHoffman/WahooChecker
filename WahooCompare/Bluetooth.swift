@@ -12,11 +12,12 @@ import CoreBluetooth
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
-    static let sharedInstance = Bluetooth()
+    @EnvironmentObject var bt: Bluetooth
     
     @Published var names = [String]()
     @Published var peripherals = [CBPeripheral]()
-
+    @Published var deviceList = [Device]()
+    
     var centralManager: CBCentralManager!
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
@@ -40,6 +41,11 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         self.createCentralManager()
     }
     
+    struct Device: Identifiable, Hashable {
+        let id = UUID()
+        let name: String
+    }
+    
     func createCentralManager() {
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
@@ -54,6 +60,14 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func stopScan() {
         centralManager.stopScan()
+    }
+    
+    func loadDevices() {
+        for i in peripherals {
+            if let name = i.name {
+                deviceList.append(Device(name: name))
+            }
+        }
     }
     
     func addPeripheral(_ peripheral: CBPeripheral) {
@@ -105,6 +119,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         peripherals.append(peripheral) // Device list uses this
+        loadDevices()
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -168,7 +183,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         let msb = byteArray[3]
         let lsb = byteArray[2]
         let pRaw = (Int16(msb) << 8 ) | Int16(lsb)
-        let p = PowerData(value: Double(pRaw))
+        let p = PowerData(value: CGFloat(pRaw))
         return p
     }
     

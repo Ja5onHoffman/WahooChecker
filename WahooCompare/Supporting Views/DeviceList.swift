@@ -13,67 +13,46 @@ import class CoreBluetooth.CBPeripheral
 
 struct DeviceListView: View {
     
-    @ObservedObject private var devices = Devices()
-    @State private var selected: UUID?
+    @State var selected: UUID?
     @Binding var isPresented: Bool
     @Binding var name: String
-    static var bt = Bluetooth.sharedInstance
+    @Environment(\.managedObjectContext) var moc
+    @EnvironmentObject var bt: Bluetooth
+
     
-    struct Device: Identifiable, Hashable {
-        let id = UUID()
-        let name: String
-    }
-
-    class Devices: ObservableObject {
-        
-        @Published var deviceList: [Device] = loadDevices()
-        
-        
-        static func loadDevices() -> [Device] {
-            var dL = [Device]()
-            for i in bt.peripherals {
-                if let name = i.name {
-                    dL.append(Device(name: name))
-                }
-            }
-            return dL
-        }
-        
-        
-        func connectToPeripheralWithName(_ name: String) {
-            for i in bt.peripherals {
-                if i.name == name {
-                    if bt.deviceNumber == 1 {
-                        bt.p1Name = name
-                    } else if bt.deviceNumber == 2 {
-                        bt.p2Name = name
-                    }
-                    bt.connectTo(i)
-                    bt.addPeripheral(i)
-                }
-            }
-        }
-    }
-
     struct DeviceRow: View {
-        let device: Device
+        let device: Bluetooth.Device
         
         var body: some View {
             Text(device.name)
         }
     }
     
+    func connectToPeripheralWithName(_ name: String) {
+        for i in bt.peripherals {
+            if i.name == name {
+                if bt.deviceNumber == 1 {
+                    bt.p1Name = name
+                } else if bt.deviceNumber == 2 {
+                    bt.p2Name = name
+                }
+                bt.connectTo(i)
+                bt.addPeripheral(i)
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView {
-            List(devices.deviceList, selection: $selected) { d in
+            List(self.bt.deviceList, selection: $selected) { d in
                 DeviceRow(device: d).tag(d.name)
             }.environment(\.editMode, .constant(.active))
         .navigationBarTitle(Text("Choose a Device"))
                 .navigationBarItems(trailing: Button(action: {
                     self.isPresented = false
-                    for i in self.devices.deviceList {
+                    for i in self.bt.deviceList {
                         if self.selected!.uuidString == i.id.uuidString {
-                            self.devices.connectToPeripheralWithName(i.name)
+                            self.connectToPeripheralWithName(i.name)
                             self.name = i.name
                         }
                     }

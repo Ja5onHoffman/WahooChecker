@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct PowerData: Identifiable, Hashable {
     let id = UUID()
-    let value: Double
+    var value: CGFloat
     let device: Int = 0
 }
 
@@ -18,7 +19,7 @@ struct PowerArray: Identifiable {
     var id = UUID() 
     
     let size: Int?
-    var values = [PowerData]()
+    var values = [PowerData](repeating: PowerData(value: 0), count: 100)
     
     init(size: Int) {
         self.size = size

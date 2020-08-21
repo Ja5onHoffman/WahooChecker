@@ -14,7 +14,9 @@ struct DataBox: View {
     @State var deviceName: String = ""
     var deviceNumber: Int = 0
     var name: String = "Device" 
-    var bt = Bluetooth.sharedInstance
+    @EnvironmentObject var bt: Bluetooth
+    @Environment(\.managedObjectContext) var moc
+    
     
     var body: some View {
         VStack {
@@ -36,7 +38,7 @@ struct DataBox: View {
                         self.showingDevices.toggle()
                     }, label: { Text("Connect Device") })
                         .sheet(isPresented: $showingDevices) {
-                            DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
+                            DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).environment(\.managedObjectContext, self.moc).environmentObject(self.bt).onAppear {
                                 self.bt.setDeviceNumber(1)
                                 self.bt.scan()
                             }.onDisappear {
@@ -67,7 +69,7 @@ struct DataBox: View {
                         self.showingDevices.toggle()
                     }, label: { Text("Connect Device") })
                         .sheet(isPresented: $showingDevices) {
-                            DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).onAppear {
+                            DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).environment(\.managedObjectContext, self.moc).environmentObject(self.bt).onAppear {
                                 self.bt.setDeviceNumber(2)
                                 self.bt.scan()
                             }.onDisappear {

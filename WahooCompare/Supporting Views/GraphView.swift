@@ -10,9 +10,10 @@ import SwiftUI
 
 
 struct GraphView: View {
+    
     let sampleData: [CGFloat] = [500.0, 200.0, 200.0, 600.0, 800.0, 100.0, 200.0, 300.0, 200.0]
 
-    let bt = Bluetooth.sharedInstance
+    @EnvironmentObject var bt: Bluetooth
     
     func scaleHeight(_ height: CGFloat, range: Int) -> CGFloat {
       height / CGFloat(range)
@@ -39,18 +40,19 @@ struct GraphView: View {
         // This could be made to scale with higher watts
         GeometryReader { r in
                 Path { path in
+                    let pValuesSize = self.bt.p1Values.size!
                     let height = r.size.height
                     let width = r.size.width
                     let scale = self.scaleHeight(height, range: 800)
                     let firstPointY = self.pointOffset(0.0, scaleHeight: scale)
                     path.move(to: .init(x: 0, y: firstPointY))
-                    for i in 0..<self.sampleData.count {
+                    for i in 0..<pValuesSize {
+                        let val = self.bt.p1Values.values[i].value
                         path.addLine(to:
                             CGPoint(
-                                x: self.xOffset(i, self.xIncrement(width, self.sampleData.count)),
-                                y: height - self.pointOffset(self.sampleData[i], scaleHeight: scale))
+                                x: self.xOffset(i, self.xIncrement(width, pValuesSize)),
+                                y: height - self.pointOffset(val, scaleHeight: scale))
                         )
-                        print(height - self.pointOffset(self.sampleData[i], scaleHeight: scale))
                     }
                 }.stroke(style: .init(lineWidth: 5.0, lineCap: .round, lineJoin: .round))
     
