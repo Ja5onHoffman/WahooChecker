@@ -24,17 +24,17 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     let wattUnitCBUUID = CBUUID(string: "0x2762")
     var deviceNumber = 0
     
-    var p1: CBPeripheral!
-    var p2: CBPeripheral!
+    var p1: CBPeripheral?
+    var p2: CBPeripheral?
 
     @Published var p1Values = PowerArray(size: 100)
     @Published var p2Values = PowerArray(size: 100)
     
     @Published var p1Power = PowerData(value: 0)
-    @Published var p2Power =  PowerData(value: 0)
+    @Published var p2Power = PowerData(value: 0)
     
-    @Published var p1Name: String = "Device 1"
-    @Published var p2Name: String = "Device 2"
+    @Published var p1Name: String? = "Device 1"
+    @Published var p2Name: String? = "Device 2"
 
     public override init() {
         super.init()
@@ -60,12 +60,14 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     func stopScan() {
         centralManager.stopScan()
+        deviceList.removeAll()
+        peripherals.removeAll()
     }
     
     func loadDevices() {
         for i in peripherals {
             if let name = i.name {
-                deviceList.append(Device(name: name))
+                    deviceList.append(Device(name: name))
             }
         }
     }
@@ -74,14 +76,14 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         if let p = peripherals[0] as CBPeripheral? {
             p1 = p
             p1Name = p.name!
-            p1.delegate = self
+            p1!.delegate = self
         }
         
         if peripherals.count > 1 {
             if let p = peripherals[1] as CBPeripheral? {
                 p2 = p
                 p2Name = p.name!
-                p2.delegate = self
+                p2!.delegate = self
             }
         }
     }
@@ -89,6 +91,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     func connectTo(_ peripheral: CBPeripheral) {
         // Assioma has to be in L only mode vs Dual L/R
         centralManager.connect(peripheral, options: nil)
+    }
+    
+    func disconnect(_ peripheral: CBPeripheral) {
+        centralManager.cancelPeripheralConnection(peripheral)
     }
     
     func setDeviceNumber(_ number: Int) {

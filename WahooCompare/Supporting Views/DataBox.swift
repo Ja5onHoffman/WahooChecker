@@ -13,9 +13,12 @@ struct DataBox: View {
     @State var showingDevices = false
     @State var deviceName: String = ""
     var deviceNumber: Int = 0
-    var name: String = "Device" 
+    @State var name1 = "Device 1"
+    @State var name2 = "Device 2"
     @EnvironmentObject var bt: Bluetooth
+    // Required for SwiftUI bug
     @Environment(\.managedObjectContext) var moc
+    
     
     
     var body: some View {
@@ -27,26 +30,32 @@ struct DataBox: View {
                     .padding(EdgeInsets(top: 0, leading: 5.0, bottom: 5.0, trailing: 5.0))
                     .aspectRatio(1.5, contentMode: .fill)
                 VStack(spacing: 70) {
-                    Text(name)
+                    Text(name1)
                         .padding(EdgeInsets(top: 10.0, leading: 20.0, bottom: 10.0, trailing: 20.0))
                         .background(Color.black)
                         .cornerRadius(20.0)
                         .font(.title)
                         .foregroundColor(.white)
-                    Text("\(bt.p1Power.value)")
+                    Text(String(format:"%.0f", bt.p1Power.value))
                     Button(action: {
-                        self.showingDevices.toggle()
-                    }, label: { Text("Connect Device") })
+                        if let p = self.bt.p1 {
+                            self.bt.disconnect(p)
+                        } else {
+                            self.showingDevices.toggle()
+                        }
+                    }, label: { Text(name1 == "Device 1" ? "Connect Device" : "Disconnect") })
                         .sheet(isPresented: $showingDevices) {
-                            DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).environment(\.managedObjectContext, self.moc).environmentObject(self.bt).onAppear {
+                            DeviceListView(isPresented: self.$showingDevices, name:
+                                self.$deviceName).environment(\.managedObjectContext, self.moc).environmentObject(self.bt).onAppear {
                                 self.bt.setDeviceNumber(1)
                                 self.bt.scan()
                             }.onDisappear {
                                 self.bt.stopScan()
+                                
                             }
                     }
                         .padding()
-                        .background(Color.green)
+                        .background(name1 == "Device 1" ? Color.green : Color.red)
                         .cornerRadius(20)
                 
                 }
@@ -58,16 +67,20 @@ struct DataBox: View {
                     .padding(EdgeInsets(top: 0, leading: 5.0, bottom: 5.0, trailing: 5.0))
                     .aspectRatio(1.5, contentMode: .fill)
                 VStack(spacing: 70) {
-                    Text(name)
+                    Text(name2)
                         .padding(EdgeInsets(top: 10.0, leading: 20.0, bottom: 10.0, trailing: 20.0))
                         .background(Color.black)
                         .cornerRadius(20.0)
                         .font(.title)
                         .foregroundColor(.white)
-                    Text("\(bt.p2Power.value)")
+                    Text(String(format:"%.0f", bt.p2Power.value))
                     Button(action: {
-                        self.showingDevices.toggle()
-                    }, label: { Text("Connect Device") })
+                        if let p = self.bt.p2 {
+                            self.bt.disconnect(p)
+                        } else {
+                            self.showingDevices.toggle()
+                        }
+                    }, label: { Text(name2 == "Device 2" ? "Connect Device" : "Disconnect") })
                         .sheet(isPresented: $showingDevices) {
                             DeviceListView(isPresented: self.$showingDevices, name: self.$deviceName).environment(\.managedObjectContext, self.moc).environmentObject(self.bt).onAppear {
                                 self.bt.setDeviceNumber(2)
@@ -77,7 +90,7 @@ struct DataBox: View {
                             }
                     }
                         .padding()
-                        .background(Color.green)
+                        .background(name2 == "Device 2" ? Color.green : Color.red)
                         .cornerRadius(20)
                 
                 }

@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1BE0AF9A-A8B2-4E4F-AB13-CF6D374C1670"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WahooCompare/Supporting Views/GraphView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7505DE88-1A89-4F1B-89D4-1F2250CC1471"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -144,6 +128,54 @@
                   startingLineNumber = "59"
                   endingLineNumber = "59"
                   offsetFromSymbolStart = "188">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6448205A-9792-4C88-88F1-720CDA72E2F1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WahooCompare/Supporting Views/GraphView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "6448205A-9792-4C88-88F1-720CDA72E2F1 - fa54c7f7b2ab032f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, SwiftUI.Group&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.font(Swift.Optional&lt;SwiftUI.Font&gt;) -&gt; some&gt;&gt;.0&gt;)&gt;&gt;&gt;)&gt; in WahooCompare.GraphView.body.getter : some"
+                  moduleName = "WahooCompare"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jasonhoffman/Dropbox/Code/ProgInSwift/WahooCompare/WahooCompare/Supporting%20Views/GraphView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "908">
+               </Location>
+               <Location
+                  uuid = "6448205A-9792-4C88-88F1-720CDA72E2F1 - f58f9212e48629b6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (inout SwiftUI.Path) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, SwiftUI.ForEach&lt;Swift.Range&lt;Swift.Int&gt;, Swift.Int, SwiftUI.Group&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.Shape.stroke&lt;A where A1: SwiftUI.ShapeStyle&gt;(_: A1, lineWidth: CoreGraphics.CGFloat) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of (extension in SwiftUI):SwiftUI.View.font(Swift.Optional&lt;SwiftUI.Font&gt;) -&gt; some&gt;&gt;.0&gt;)&gt;&gt;&gt;)&gt; in WahooCompare.GraphView.body.getter : some"
+                  moduleName = "WahooCompare"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jasonhoffman/Dropbox/Code/ProgInSwift/WahooCompare/WahooCompare/Supporting%20Views/GraphView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "420">
                </Location>
             </Locations>
          </BreakpointContent>
