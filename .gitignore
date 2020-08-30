@@ -9,3 +9,4 @@ GoogleService-Info.plist
 .xcuserstate
 .xcbkptlist
 *xcworkspace/xcuserdata/*
+*.xcbkptlist
