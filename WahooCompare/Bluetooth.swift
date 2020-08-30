@@ -12,32 +12,38 @@ import CoreBluetooth
 
 open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
-    static let sharedInstance = Bluetooth()
+    @EnvironmentObject var bt: Bluetooth
     
     @Published var names = [String]()
     @Published var peripherals = [CBPeripheral]()
-
+    @Published var deviceList = [Device]()
+    
     var centralManager: CBCentralManager!
     let powerMeterServiceCBUUID = CBUUID(string: "0x1818")
     let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
     let wattUnitCBUUID = CBUUID(string: "0x2762")
     var deviceNumber = 0
     
-    var p1: CBPeripheral!
-    var p2: CBPeripheral!
+    var p1: CBPeripheral?
+    var p2: CBPeripheral?
 
     @Published var p1Values = PowerArray(size: 100)
     @Published var p2Values = PowerArray(size: 100)
     
     @Published var p1Power = PowerData(value: 0)
-    @Published var p2Power =  PowerData(value: 0)
+    @Published var p2Power = PowerData(value: 0)
     
-    @Published var p1Name: String = "Device 1"
-    @Published var p2Name: String = "Device 2"
+    @Published var p1Name: String? = "Device 1"
+    @Published var p2Name: String? = "Device 2"
 
     public override init() {
         super.init()
         self.createCentralManager()
+    }
+    
+    struct Device: Identifiable, Hashable {
+        let id = UUID()
+        let name: String
     }
     
     func createCentralManager() {
@@ -52,18 +58,32 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         }
     }
     
+    func stopScan() {
+        centralManager.stopScan()
+        deviceList.removeAll()
+        peripherals.removeAll()
+    }
+    
+    func loadDevices() {
+        for i in peripherals {
+            if let name = i.name {
+                    deviceList.append(Device(name: name))
+            }
+        }
+    }
+    
     func addPeripheral(_ peripheral: CBPeripheral) {
         if let p = peripherals[0] as CBPeripheral? {
             p1 = p
             p1Name = p.name!
-            p1.delegate = self
+            p1!.delegate = self
         }
         
         if peripherals.count > 1 {
             if let p = peripherals[1] as CBPeripheral? {
                 p2 = p
                 p2Name = p.name!
-                p2.delegate = self
+                p2!.delegate = self
             }
         }
     }
@@ -71,6 +91,10 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     func connectTo(_ peripheral: CBPeripheral) {
         // Assioma has to be in L only mode vs Dual L/R
         centralManager.connect(peripheral, options: nil)
+    }
+    
+    func disconnect(_ peripheral: CBPeripheral) {
+        centralManager.cancelPeripheralConnection(peripheral)
     }
     
     func setDeviceNumber(_ number: Int) {
@@ -101,6 +125,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         peripherals.append(peripheral) // Device list uses this
+        loadDevices()
     }
     
     public func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
@@ -164,7 +189,7 @@ open class Bluetooth: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, 
         let msb = byteArray[3]
         let lsb = byteArray[2]
         let pRaw = (Int16(msb) << 8 ) | Int16(lsb)
-        let p = PowerData(value: Double(pRaw))
+        let p = PowerData(value: CGFloat(pRaw))
         return p
     }
     

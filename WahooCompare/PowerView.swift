@@ -15,7 +15,7 @@ let powerMeasurementCharacteristicCBUUID = CBUUID(string: "0x2A63")
 
 struct PowerView: View {
 
-    let bt = Bluetooth.sharedInstance
+    @EnvironmentObject var bt: Bluetooth
 
     var body: some View {
         

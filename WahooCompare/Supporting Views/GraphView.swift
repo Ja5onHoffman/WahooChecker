@@ -9,85 +9,96 @@
 import SwiftUI
 
 
-
 struct GraphView: View {
-    var sampleData: [Int] = [0, 200, 100, 300, 50, 600, 800, 100]
-
-    let bt = Bluetooth.sharedInstance
     
-    func degreeHeight(_ height: CGFloat, range: Int) -> CGFloat {
+    let sampleData: [CGFloat] = [500.0, 200.0, 200.0, 600.0, 800.0, 100.0, 200.0, 300.0, 200.0]
+
+    @EnvironmentObject var bt: Bluetooth
+    
+    func scaleHeight(_ height: CGFloat, range: Int) -> CGFloat {
       height / CGFloat(range)
     }
-    
-    func dayWidth(_ width: CGFloat, count: Int) -> CGFloat {
-      width / CGFloat(count)
+
+    func pointOffset(_ value: CGFloat, scaleHeight: CGFloat) -> CGFloat {
+      CGFloat(value) * scaleHeight
     }
     
-    func dayOffset(_ date: Date, dWidth: CGFloat) -> CGFloat {
-      CGFloat(Calendar.current.ordinality(of: .day, in: .year, for: date)!) * dWidth
+    func powerLabelOffset(_ line: Int, height: CGFloat) -> CGFloat {
+      height - self.pointOffset(CGFloat(line * 100), scaleHeight: self.scaleHeight(height, range: 800))
     }
     
-    func tempOffset(_ temperature: Double, degreeHeight: CGFloat) -> CGFloat {
-      CGFloat(temperature + 10) * degreeHeight
+    func xIncrement(_ width: CGFloat, _ count: Int) -> CGFloat {
+      return width / CGFloat(count)
     }
     
-    func tempLabelOffset(_ line: Int, height: CGFloat) -> CGFloat {
-      height - self.tempOffset(Double(line * 10), degreeHeight: self.degreeHeight(height, range: 100))
+    func xOffset(_ n: Int, _ xIncrement: CGFloat) -> CGFloat {
+        return CGFloat(n) * xIncrement
     }
     
     var body: some View {
         
         // This could be made to scale with higher watts
         GeometryReader { r in
-            ForEach(0..<9) { line in
-                Group {
-                    Path { path in
-                        let yh = self.tempLabelOffset(line, height: r.size.height)
-                        path.move(to: CGPoint(x: 0, y: yh))
-                        path.addLine(to: CGPoint(x: r.size.width, y: yh))
-                    }.stroke(line == 0 ? Color.black : Color.gray)
-                    if line >= 0 {
-                      Text("\(line * 100)W")
-                        .offset(x: 10, y: self.tempLabelOffset(line, height: r.size.height))
-                        .font(.system(size: 8))
+                // Wahoo line
+                Path { path in
+                    let pValuesSize = self.bt.p1Values.size!
+                    let height = r.size.height
+                    let width = r.size.width
+                    let scale = self.scaleHeight(height, range: 800)
+                    let firstPointY = self.pointOffset(0.0, scaleHeight: scale)
+                    path.move(to: .init(x: 0, y: firstPointY))
+                    for i in 0..<pValuesSize {
+                        let val = self.bt.p1Values.values[i].value
+                        path.addLine(to:
+                            CGPoint(
+                                x: self.xOffset(i, self.xIncrement(width, pValuesSize)),
+                                y: height - self.pointOffset(val, scaleHeight: scale))
+                        )
+                    }
+                }.stroke(style: .init(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                    .stroke(Color.blue)
+                
+                // Pedal line
+                Path { path in
+                    let pValuesSize = self.bt.p2Values.size!
+                    let height = r.size.height
+                    let width = r.size.width
+                    let scale = self.scaleHeight(height, range: 800)
+                    let firstPointY = self.pointOffset(0.0, scaleHeight: scale)
+                    path.move(to: .init(x: 0, y: firstPointY))
+                    for i in 0..<pValuesSize {
+                        let val = self.bt.p2Values.values[i].value
+                        path.addLine(to:
+                            CGPoint(
+                                x: self.xOffset(i, self.xIncrement(width, pValuesSize)),
+                                y: height - self.pointOffset(val, scaleHeight: scale))
+                        )
+                    }
+                }.stroke(style: .init(lineWidth: 4, lineCap: .round, lineJoin: .round))
+                    .stroke(Color.red)
+            
+            
+            
+                ForEach(0..<9) { line in
+                    Group {
+                        Path { path in
+                            let scale = self.scaleHeight(r.size.height, range: 800)
+                            let yh = self.powerLabelOffset(line, height: r.size.height)
+//                            let yh = self.scaleHeight(r.size.height, range: 100)
+                            path.move(to: CGPoint(x: 0, y: yh))
+                            path.addLine(to: CGPoint(x: r.size.width, y: yh))
+                        }.stroke(line == 0 ? Color.black : Color.gray)
+                        if line >= 0 {
+                          Text("\(line * 100)W")
+                            .offset(x: 10, y: self.powerLabelOffset(line, height: r.size.height))
+                            .font(.system(size: 8))
                     }
                 }
             }
-            
-            // Last n indicies of array
-            // Or limit length to 500
-            ForEach(self.bt.p1Values.values) { d in
-                Path { path in
-                   let h = r.size.height
-                    let width = self.dayWidth(r.size.width, count: 500)
-//                    let offset = self.dayOffset(d, dWidth: width)
-                   let wHeight = self.degreeHeight(h, range: 800)
-                   let low = self.tempOffset(0.0, degreeHeight: wHeight)
-                   let high = self.tempOffset(800.0, degreeHeight: 100)
-                   path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
-                   path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
-
-                }.stroke(Color.blue, lineWidth: 10)
-            }
-            
-            ForEach(self.bt.p2Values.values) { d in
-                Path { path in
-                   let h = r.size.height
-                    let width = self.dayWidth(r.size.width, count: 500)
-//                    let offset = self.dayOffset(d, dWidth: width)
-                   let wHeight = self.degreeHeight(h, range: 800)
-                   let low = self.tempOffset(0.0, degreeHeight: wHeight)
-                   let high = self.tempOffset(800.0, degreeHeight: 100)
-                   path.move(to: CGPoint(x: 0, y: self.tempLabelOffset(0, height: r.size.height)))
-                   path.addLine(to: CGPoint(x: 100, y: self.tempLabelOffset(8, height: r.size.height)))
-
-                }.stroke(Color.blue, lineWidth: 10)
-            }
-            
-            
         }
     }
 }
+
 
 
 struct GraphView_Previews: PreviewProvider {
